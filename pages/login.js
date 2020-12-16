@@ -1,9 +1,9 @@
 import Layout from "../components/layout/Layout";
 
-export default function Home() {
+export default function Login() {
   return (
     <Layout>
-      <h1>home</h1>
+      <h1>Login</h1>
     </Layout>
   );
 }
