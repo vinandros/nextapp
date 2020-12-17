@@ -12,6 +12,7 @@ const Layout = (props) => {
             --gray-secondary: #6f6f6f;
             --gray-optional: #e1e1e1;
             --orange: #da552f;
+            --orange-hover: #d14c27;
           }
           html {
             font-size: 62.5%;
