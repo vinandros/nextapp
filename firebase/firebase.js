@@ -1,12 +1,16 @@
 import app from "firebase/app";
 import firebaseConfig from "./config";
 import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 class FireBase {
   constructor() {
     if (!app.apps.length) {
       app.initializeApp(firebaseConfig);
     }
     this.auth = app.auth();
+    this.db = app.firestore();
+    this.storage = app.storage;
   }
 
   async signup(name, email, password) {

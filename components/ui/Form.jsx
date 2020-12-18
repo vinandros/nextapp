@@ -6,6 +6,13 @@ export const FormStyle = styled.form`
   margin: 5rem auto 0 auto;
   display: flex;
   flex-direction: column;
+
+  fieldset {
+    margin: 2rem 0;
+    border: 2px solid var(--gray-optional);
+    font-size: 2rem;
+    padding: 2rem;
+  }
 `;
 
 export const InputStyles = styled.div`
@@ -17,9 +24,14 @@ export const InputStyles = styled.div`
     font-size: 1.8rem;
   }
 
-  input {
+  input,
+  textarea {
     flex: 1;
     padding: 1rem;
+  }
+
+  textarea {
+    height: 300px;
   }
 `;
 

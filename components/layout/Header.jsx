@@ -81,39 +81,6 @@ const Header = () => {
               </Link>
             </>
           )}
-          {/* {user ? (
-            <>
-              {loading ? null : (
-                <>
-                  <p
-                    css={css`
-                      margin-right: 2rem;
-                    `}
-                  >
-                    {`Hi ${user.displayName}`}
-                  </p>
-                  <Buttom onClick={() => firebase.logout()} bgColor="true">
-                    Logout
-                  </Buttom>
-                </>
-              )}
-            </>
-          ) : (
-            <>
-              {loading ? null : (
-                <>
-                  <Link href="/login">
-                    <Buttom onClick={handleClick} bgColor="true">
-                      Login
-                    </Buttom>
-                  </Link>
-                  <Link href="/signup">
-                    <Buttom onClick={handleClick}> Signup</Buttom>
-                  </Link>
-                </>
-              )}
-            </>
-          )} */}
         </div>
       </HeaderContainer>
     </header>
