@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import styled from "@emotion/styled";
+
+import { FireBaseContext } from "../../firebase";
 
 const NavStyle = styled.nav`
   padding-left: 2rem;
@@ -21,11 +23,21 @@ const NavStyle = styled.nav`
 `;
 
 const Nav = () => {
+  const { user } = useContext(FireBaseContext);
+  const [loading, setloading] = useState(true);
+  useEffect(() => {
+    setloading(false);
+  }, []);
   return (
     <NavStyle>
-      <Link href="/">Home</Link>
-      <Link href="/populars">Populars</Link>
-      <Link href="/new-product">New Product</Link>
+      {loading ? null : (
+        <>
+          <Link href="/">Home</Link>
+          <Link href="/populars">Populars</Link>
+
+          {user && <Link href="/new-product">New Product</Link>}
+        </>
+      )}
     </NavStyle>
   );
 };

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Search from "../ui/Search";
 import Nav from "./Nav";
 import Buttom from "../ui/Buttom";
+import { FireBaseContext } from "../../firebase";
 
 const HeaderContainer = styled.div`
   max-width: 1200px;
@@ -28,7 +29,8 @@ const Logo = styled.p`
 `;
 
 const Header = () => {
-  const user = false;
+  const { user, firebase } = useContext(FireBaseContext);
+
   return (
     <header
       css={css`
@@ -63,9 +65,11 @@ const Header = () => {
                   margin-right: 2rem;
                 `}
               >
-                Hola Vin Andros
+                {`Hi ${user.displayName}`}
               </p>
-              <Buttom bgColor="true">Logout</Buttom>
+              <Buttom onClick={() => firebase.logout()} bgColor="true">
+                Logout
+              </Buttom>
             </>
           ) : (
             <>
@@ -77,6 +81,39 @@ const Header = () => {
               </Link>
             </>
           )}
+          {/* {user ? (
+            <>
+              {loading ? null : (
+                <>
+                  <p
+                    css={css`
+                      margin-right: 2rem;
+                    `}
+                  >
+                    {`Hi ${user.displayName}`}
+                  </p>
+                  <Buttom onClick={() => firebase.logout()} bgColor="true">
+                    Logout
+                  </Buttom>
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              {loading ? null : (
+                <>
+                  <Link href="/login">
+                    <Buttom onClick={handleClick} bgColor="true">
+                      Login
+                    </Buttom>
+                  </Link>
+                  <Link href="/signup">
+                    <Buttom onClick={handleClick}> Signup</Buttom>
+                  </Link>
+                </>
+              )}
+            </>
+          )} */}
         </div>
       </HeaderContainer>
     </header>

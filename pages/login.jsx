@@ -10,11 +10,11 @@ import {
 } from "../components/ui/Form";
 import firebase from "../firebase";
 import useValidation from "../hooks/useValidation";
-import signupValidations from "../validation/signupValidations";
+import loginValidations from "../validation/loginValidations";
 
-const initialState = { name: "", email: "", password: "" };
+const initialState = { email: "", password: "" };
 
-export default function Signup() {
+export default function Login() {
   const [error, setError] = useState(false);
   const {
     values,
@@ -22,12 +22,12 @@ export default function Signup() {
     handleChange,
     handleSubmit,
     handleBlur,
-  } = useValidation(initialState, signupValidations, signupAccount);
+  } = useValidation(initialState, loginValidations, login);
 
-  const { name, email, password } = values;
-  async function signupAccount() {
+  const { email, password } = values;
+  async function login() {
     try {
-      await firebase.signup(name, email, password);
+      await firebase.login(email, password);
       Router.push("/");
     } catch (error) {
       console.log(error.message);
@@ -43,23 +43,9 @@ export default function Signup() {
           margin-top: 5rem;
         `}
       >
-        Signup
+        Login
       </h1>
       <FormStyle onSubmit={handleSubmit} noValidate>
-        <InputStyles error={errors.name ? true : false}>
-          <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Your name"
-            onChange={handleChange}
-            value={name}
-            onBlur={handleBlur}
-          />
-        </InputStyles>
-        {errors.name && <Error>{errors.name}</Error>}
-
         <InputStyles error={errors.email ? true : false}>
           <label htmlFor="email">Email</label>
           <input
@@ -87,7 +73,7 @@ export default function Signup() {
         </InputStyles>
         {errors.password && <Error>{errors.password}</Error>}
         {error && <Error>{error}</Error>}
-        <InputSubmit type="submit" value="Signup" />
+        <InputSubmit type="submit" value="Login" />
       </FormStyle>
     </Layout>
   );
