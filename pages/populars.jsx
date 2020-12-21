@@ -3,8 +3,8 @@ import Layout from "../components/layout/Layout";
 import ProductDetails from "../components/layout/ProductDetails";
 import useProducts from "../hooks/useProducts";
 
-export default function Home() {
-  const { loading, products } = useProducts("createdAt");
+export default function Populars() {
+  const { loading, products } = useProducts("likes");
 
   // Loading============================================================
   if (products.length === 0 && loading) {
