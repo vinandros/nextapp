@@ -28,13 +28,11 @@ const useValidation = (initialState, validationFn, fn) => {
     e.preventDefault();
     const validationErrors = validationFn(values);
     setErrors(validationErrors);
-    setSubmitForm(true);
   };
 
   const handleBlur = () => {
     const validationErrors = validationFn(values);
     setErrors(validationErrors);
-    setSubmitForm(true);
   };
 
   return {
@@ -43,6 +41,7 @@ const useValidation = (initialState, validationFn, fn) => {
     handleChange,
     handleSubmit,
     handleBlur,
+    setSubmitForm,
   };
 };
 

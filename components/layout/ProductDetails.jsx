@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import Link from "next/link";
 
 const Product = styled.li`
   padding: 4rem;
@@ -81,18 +82,7 @@ const Likes = styled.div`
 `;
 
 const ProductDetails = ({ product }) => {
-  const {
-    id,
-    comments,
-    createdAt,
-    company,
-    description,
-    image,
-    url,
-    likes,
-    name,
-  } = product;
-  //   console.log(product);
+  const { id, comments, createdAt, description, image, likes, name } = product;
   return (
     <Product>
       <ProductDescription>
@@ -100,7 +90,9 @@ const ProductDetails = ({ product }) => {
           <Img src={image} alt="" />
         </div>
         <div>
-          <Title>{name}</Title>
+          <Link href="/products/[id]" as={`/products/${id}`}>
+            <Title>{name}</Title>
+          </Link>
           <Description>{description}</Description>
           <Comments>
             <div>

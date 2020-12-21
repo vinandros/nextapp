@@ -22,6 +22,7 @@ export default function Signup() {
     handleChange,
     handleSubmit,
     handleBlur,
+    setSubmitForm,
   } = useValidation(initialState, signupValidations, signupAccount);
 
   const { name, email, password } = values;
@@ -87,7 +88,7 @@ export default function Signup() {
         </InputStyles>
         {errors.password && <Error>{errors.password}</Error>}
         {error && <Error>{error}</Error>}
-        <InputSubmit type="submit" value="Signup" />
+        <InputSubmit onClick={setSubmitForm} type="submit" value="Signup" />
       </FormStyle>
     </Layout>
   );

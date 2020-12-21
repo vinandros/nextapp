@@ -12,6 +12,7 @@ import { FireBaseContext } from "../firebase";
 import useValidation from "../hooks/useValidation";
 import newProductVaslidations from "../validation/newProductVaslidations";
 import FileUploader from "react-firebase-file-uploader";
+import Error404 from "../components/layout/404";
 
 const initialState = {
   name: "",
@@ -22,25 +23,29 @@ const initialState = {
 };
 
 export default function NewProduct() {
-  //imgs state
-  const [imgName, setImgName] = useState("");
-  const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  // Img============================================================
   const [imgUrl, setImgUrl] = useState("");
-  //state
+
+  // State ============================================================
   const [error, setError] = useState(false);
+  //use validations and handle submit
   const {
     values,
     errors,
     handleChange,
     handleSubmit,
     handleBlur,
+    setSubmitForm,
   } = useValidation(initialState, newProductVaslidations, addNewProduct);
-  const { name, company, image, url, description } = values;
-  //Route
+  const { name, company, url, description } = values;
+
+  // Router============================================================
   const router = useRouter();
-  //firebase
+
+  // Firebase============================================================
   const { user, firebase } = useContext(FireBaseContext);
+
+  // Add Product============================================================
   async function addNewProduct() {
     if (!user) {
       return router.push("/login");
@@ -55,6 +60,11 @@ export default function NewProduct() {
       likes: 0,
       comments: [],
       createdAt: Date.now(),
+      createdBy: {
+        id: user.uid,
+        name: user.displayName,
+      },
+      likedBy: [],
     };
 
     console.log("adding product");
@@ -68,24 +78,12 @@ export default function NewProduct() {
     }
   }
 
-  /**
-   * Image uploading
-   */
-  const handleUploadStart = () => {
-    setUploading(true);
-    setProgress(0);
-  };
-
-  const handleProgress = (progress) => setProgress(progress);
+  // hanleImage============================================================
   const handleUploadError = (error) => {
-    setUploading(false);
     console.log("error", error);
   };
   const handleUploadSuccess = (filename) => {
-    setImgName(filename);
-    setProgress(100);
     console.log("Success");
-    setUploading(false);
     firebase
       .storage()
       .ref("products")
@@ -96,6 +94,15 @@ export default function NewProduct() {
         setImgUrl(url);
       });
   };
+
+  // Errors============================================================
+  if (!user) {
+    return (
+      <Layout>
+        <Error404 />
+      </Layout>
+    );
+  }
   return (
     <Layout>
       <h1
@@ -141,18 +148,10 @@ export default function NewProduct() {
             <label htmlFor="image">Image</label>
             <FileUploader
               accept="image/*"
-              // name="image"
-              // id="image"
+              name="image"
+              id="image"
               randomizeFilename
-              // onChange={handleChange}
-              // value={image}
-              // metadata={() => {
-              //   name: "img";
-              // }}
-              // onBlur={handleBlur}
               storageRef={firebase.storage().ref("products")}
-              onUploadStart={handleUploadStart}
-              onProgress={handleProgress}
               onUploadSuccess={handleUploadSuccess}
               onUploadError={handleUploadError}
             />
@@ -189,7 +188,11 @@ export default function NewProduct() {
         </fieldset>
 
         {error && <Error>{error}</Error>}
-        <InputSubmit type="submit" value="Create Product" />
+        <InputSubmit
+          onClick={setSubmitForm}
+          type="submit"
+          value="Create Product"
+        />
       </FormStyle>
     </Layout>
   );

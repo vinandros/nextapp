@@ -22,6 +22,7 @@ export default function Login() {
     handleChange,
     handleSubmit,
     handleBlur,
+    setSubmitForm,
   } = useValidation(initialState, loginValidations, login);
 
   const { email, password } = values;
@@ -73,7 +74,7 @@ export default function Login() {
         </InputStyles>
         {errors.password && <Error>{errors.password}</Error>}
         {error && <Error>{error}</Error>}
-        <InputSubmit type="submit" value="Login" />
+        <InputSubmit onClick={setSubmitForm} type="submit" value="Login" />
       </FormStyle>
     </Layout>
   );

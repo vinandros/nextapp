@@ -32,10 +32,18 @@ const Nav = () => {
     <NavStyle>
       {loading ? null : (
         <>
-          <Link href="/">Home</Link>
-          <Link href="/populars">Populars</Link>
+          <Link href="/">
+            <a>Home</a>
+          </Link>
+          <Link href="/populars">
+            <a>Populars</a>
+          </Link>
 
-          {user && <Link href="/new-product">New Product</Link>}
+          {user && (
+            <Link href="/new-product">
+              <a>New Product</a>
+            </Link>
+          )}
         </>
       )}
     </NavStyle>
