@@ -1,1 +1,1 @@
-# Web app replic of productHunt
+# Clone page of Product Hunt Website, using tecnologies like react, nextjs and firebase.
